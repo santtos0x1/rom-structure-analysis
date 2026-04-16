@@ -54,7 +54,9 @@ void vTaskCode(void *pvParameters){
     uint16_t d_data;
     uint16_t rom_addr;
 
-    printf("ADDR, DATA\n");
+    vTaskDelay(pdMS_TO_TICKS(2000));
+    
+    printf("ADDR,DATA\n");
     for(;;)
     {
         rom_addr = 0;
@@ -100,7 +102,7 @@ void vTaskCode(void *pvParameters){
             }
         }
 
-        printf("0x%03X, 0x%02X\n", rom_addr, d_data);
+        printf("0x%03X,0x%02X\n", rom_addr, d_data);
 
         vTaskDelay(pdMS_TO_TICKS(100));
         counter++;
