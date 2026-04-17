@@ -2,7 +2,7 @@ import csv
 
 data_bytes = []
 
-with open("../data/addr_0000100/dump/dump_16bit_0000100.csv") as f:
+with open("../data/addr_0010000/dump/dump_16bit_0000010.csv") as f:
     reader = csv.DictReader(f)
     for row in reader:
         raw = row["DATA"].strip()
@@ -11,6 +11,6 @@ with open("../data/addr_0000100/dump/dump_16bit_0000100.csv") as f:
 
 print(len(data_bytes))
 
-with open("rom_0000100.bin", "wb") as f:
+with open("rom_0010000.bin", "wb") as f:
     f.write(bytearray(data_bytes))
 

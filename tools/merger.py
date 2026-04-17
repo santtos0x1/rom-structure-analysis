@@ -18,8 +18,8 @@ def load_clean(path):
     return df.sort_values('ADDR').reset_index(drop=True)
 
 
-lsb = load_clean('../rom_dump_lsb_0000100.csv')
-msb = load_clean('../rom_dump_msb_0000100.csv')
+lsb = load_clean('../rom_dump_lsb_0010000.csv')
+msb = load_clean('../rom_dump_msb_0010000.csv')
 
 merged = pd.merge(lsb, msb, on='ADDR', suffixes=('_LSB', '_MSB'), how='outer').sort_values('ADDR').reset_index(drop=True)
 merged['DATA_LSB'] = merged['DATA_LSB'].fillna(0).astype(np.int64)
