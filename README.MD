@@ -2,7 +2,6 @@
 
 ![Platform](https://img.shields.io/badge/platform-ESP32-blue)
 ![Language](https://img.shields.io/badge/language-C%20%7C%20Python-orange)
-![Status](https://img.shields.io/badge/status-experimental-yellow)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## 📌 Overview
@@ -25,7 +24,7 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 ## 🛠️ Technologies
 
 - C (ESP-IDF)
-- Python (data processing and visualization)
+- Python (data processing and plotting)
 - ESP32
 
 ---
@@ -33,15 +32,17 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 ## 🚀 How It Works
 
 1. ESP32 reads ROM using address and data buses  
-2. Data is exported as CSV (`ADDR, DATA`)  
-3. Python scripts reconstruct 16-bit values  
-4. Data is analyzed for patterns and structure  
+2. Data is exported as CSV (`ADDR,DATA`) separated by MSB (Most Significant Bits) and LSB (Least Significant Bits)
+3. Python scripts cleans and reconstruct 16-bit values CSV files
+4. CSV data is converted to a binary file (.bin)
+5. Data is analyzed for patterns (e.g.: Smooth waves, etc.) and structure (e.g.: Look Up Tables (LUTs), etc.)
 
 ## 📊 Goals
 
 - Understand ROM organization at a low level  
 - Identify repeating structures and encoded data  
-- Explore possible waveform or lookup table regions  
+- Explore possible waveform or lookup table regions
+- Extract all data from ROM addresses
 
 ---
 
