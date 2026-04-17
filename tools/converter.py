@@ -1,8 +1,14 @@
 import csv
+import argparse
+
+parser = argparse.ArgumentParser(description="Convert CSV ROM dump to BIN")
+parser.add_argument("input", help="Path to input CSV file")
+parser.add_argument("output", help="Path to output BIN file")
+args = parser.parse_args()
 
 data_bytes = []
 
-with open("../data/addr_0100000/dump/dump_16bit_0100000.csv") as f:
+with open(args.input) as f:
     reader = csv.DictReader(f)
     for row in reader:
         raw = row["DATA"].strip()
@@ -11,6 +17,5 @@ with open("../data/addr_0100000/dump/dump_16bit_0100000.csv") as f:
 
 print(len(data_bytes))
 
-with open("rom_0010000.bin", "wb") as f:
+with open(args.output, "wb") as f:
     f.write(bytearray(data_bytes))
-
