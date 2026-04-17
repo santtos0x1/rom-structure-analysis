@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 samples = []
 addresses = []
 
-with open("../data/addr_0010000/dump/dump_16bit_0000010.csv", "rb") as f:
+with open("../data/addr_0100000/dump/dump_16bit_0100000.csv", "rb") as f:
     raw = f.read(4096)
 
 for i in range(0, len(raw), 2):
@@ -29,6 +29,6 @@ for i in range(0, 4001, 100):
         #if y > 0:
         #    plt.text(x, y, f"{hex(x)}\n{y}", fontsize=7, ha='center', color="black")
 
-    plt.savefig(f"{i}_normalized_sample_data200_0010000.jpeg");
+    plt.savefig(f"{i}_normalized_sample_data200_0100000.jpeg");
     
 print("Done!")

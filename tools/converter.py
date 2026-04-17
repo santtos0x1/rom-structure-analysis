@@ -2,7 +2,7 @@ import csv
 
 data_bytes = []
 
-with open("../data/addr_0010000/dump/dump_16bit_0000010.csv") as f:
+with open("../data/addr_0100000/dump/dump_16bit_0100000.csv") as f:
     reader = csv.DictReader(f)
     for row in reader:
         raw = row["DATA"].strip()
