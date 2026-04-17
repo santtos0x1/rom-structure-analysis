@@ -12,19 +12,23 @@ for i in range(0, len(raw), 2):
     samples.append(sample)
     addresses.append(i)  # real address (byte offset)
 
-subset_samples = samples[:100]
-subset_addr = addresses[:100]
+for i in range(0, 4001, 100):
+    subset_samples = samples[i:i+100]
+    subset_addr = addresses[i:i+100]
+    
+    plt.figure()
 
-plt.figure()
-plt.plot(subset_addr, subset_samples, marker='o')
+    plt.xlabel("Address (hex)")
+    plt.ylabel("Value")
+    plt.title(f"ROM Data ({i*2} to {(i+i+200)})")
 
-for x, y in zip(subset_addr, subset_samples):
-    plt.vlines(x=x, ymin=0, ymax=y, colors="red")
-    #if y > 0:
-    #    plt.text(x, y, f"{hex(x)}\n{y}", fontsize=7, ha='center', color="black")
+    plt.plot(subset_addr, subset_samples, marker='o')
 
-plt.xlabel("Address (hex)")
-plt.ylabel("Value")
-plt.title("ROM Data with Addresses")
+    for x, y in zip(subset_addr, subset_samples):
+        plt.vlines(x=x, ymin=0, ymax=y, colors="red")
+        #if y > 0:
+        #    plt.text(x, y, f"{hex(x)}\n{y}", fontsize=7, ha='center', color="black")
 
-plt.show()
+    plt.savefig(f"{i}_normalized_sample_data200_0000000.jpeg");
+    
+print("Done!")
