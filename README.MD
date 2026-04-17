@@ -10,6 +10,10 @@
 This project explores the analysis of a 16-bit ROM dump acquired using an ESP32-based reader.  
 It focuses on reconstructing data from separate MSB/LSB buses and identifying structural patterns within the memory.
 
+![Structure](/docs/images/breadboard.jpeg)
+
+---
+
 ## ⚙️ Features
 
 - ROM data acquisition using ESP32 GPIO
@@ -24,6 +28,8 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 - Python (data processing and visualization)
 - ESP32
 
+---
+
 ## 🚀 How It Works
 
 1. ESP32 reads ROM using address and data buses  
@@ -36,6 +42,8 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 - Understand ROM organization at a low level  
 - Identify repeating structures and encoded data  
 - Explore possible waveform or lookup table regions  
+
+---
 
 ## 📎 Notes
 
