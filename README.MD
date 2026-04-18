@@ -21,12 +21,29 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 - Data visualization and pattern analysis using Python
 - Exploration of memory structure and repeating patterns
 
+## 🧠 How it Works
+
+The ROM does not store full audio files. Instead, it stores
+small waveform segments that are looped and processed by the
+keyboard's internal sound engine.
+
 ## 🛠️ Technologies
 
 - ESP32 (ROM dumping)
 - C (ESP-IDF)
 - Python (data processing and plotting)
 - Audacity (audio inspection)
+
+---
+
+## 📐 Hardware Schematic
+
+<p align="center">
+  <img src="/docs/images/schematics.jpg" width="600"/>
+</p>
+
+ESP32 reads the ROM by iterating over a 12-bit address bus (A[0–11]),
+while the ROM outputs 8-bit data (D[0–7]).
 
 ---
 
@@ -54,7 +71,7 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
   <img src="/data/addr_100010/samples/images/700_normalized_sample_data_100010.jpeg" width="500"/>
 </p>
 
-This graph shows the relationship between **memory address** and **stored values**,
+**Note:** This graph shows the relationship between **memory address** and **stored values**,
 revealing repeating patterns that indicate structured waveform data.
 
 ---
