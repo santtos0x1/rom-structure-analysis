@@ -50,7 +50,9 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 
 ## 📈 Data Visualization
 
-![Sample](/data/addr_100010/samples/images/700_normalized_sample_data_100010.jpeg)
+<p align="center">
+  <img src="/data/addr_100010/samples/images/700_normalized_sample_data_100010.jpeg" width="500"/>
+</p>
 
 This graph shows the relationship between **memory address** and **stored values**,
 revealing repeating patterns that indicate structured waveform data.
