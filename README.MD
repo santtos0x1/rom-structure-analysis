@@ -23,19 +23,21 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 
 ## 🛠️ Technologies
 
+- ESP32 (ROM dumping)
 - C (ESP-IDF)
 - Python (data processing and plotting)
-- ESP32
+- Audacity (audio inspection)
 
 ---
 
-## 🚀 How It Works
+## 🔄 Pipeline
 
-1. ESP32 reads ROM using address and data buses  
-2. Data is exported as CSV (`ADDR,DATA`) separated by MSB (Most Significant Bits) and LSB (Least Significant Bits)
-3. Python scripts cleans and reconstruct 16-bit values CSV files
-4. CSV data is converted to a binary file (.bin)
-5. Data is analyzed for patterns (e.g.: Smooth waves, etc.) and structure (e.g.: Look Up Tables (LUTs), etc.)
+1. Dump ROM via ESP32
+2. Merge LSB/MSB into 16-bit data
+3. Convert CSV → BIN
+4. Analyze patterns and structures
+5. Extract waveform/audio candidates
+6. Generate playable audio samples
 
 ## 📊 Goals
 
@@ -43,6 +45,23 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 - Identify repeating structures and encoded data  
 - Explore possible waveform or lookup table regions
 - Extract all data from ROM addresses
+
+---
+
+## 📈 Data Visualization
+
+![Sample](/data/addr_100010/samples/images/700_normalized_sample_data_100010.jpeg)
+
+This graph shows the relationship between **memory address** and **stored values**,
+revealing repeating patterns that indicate structured waveform data.
+
+---
+
+## 🔊 Results
+
+- Identified repeating waveform patterns
+- Extracted short PCM-like samples (drum-like sounds)
+- Observed that most sounds are synthesized rather than stored as full audio
 
 ---
 
