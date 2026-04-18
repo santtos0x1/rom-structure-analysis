@@ -1,33 +1,25 @@
+/*
+    * This project explores the analysis of a 16-bit ROM dump acquired using an ESP32-based reader.
+    * It focuses on reconstructing data from separate MSB/LSB buses and identifying structural patterns 
+    * within the memory.
+
+    * Due to the limited number of available GPIO pins on the ESP32 (~20), not all address lines can be 
+    * driven directly. As a result, higher-order address bits (MSBs) A[17-12] are configured using fixed 
+    * hardware logic.
+    * 
+    * santtos0x1 © 2026
+*/
+
 #include <stdio.h>
 #include "driver/gpio.h"
 #include <stdint.h>
+#include "config.h"
 #include "esp_rom_sys.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#define A0_PIN  4
-#define A1_PIN  5
-#define A2_PIN  12
-#define A3_PIN  13
-#define A4_PIN  14
-#define A5_PIN  16
-#define A6_PIN  17
-#define A7_PIN  18
-#define A8_PIN  19
-#define A9_PIN  21
-#define A10_PIN 22
-#define A11_PIN 23
-
-#define D0_PIN  25
-#define D1_PIN  26
-#define D2_PIN  27
-#define D3_PIN  32
-#define D4_PIN  33
-#define D5_PIN  34
-#define D6_PIN  35
-#define D7_PIN  36
-
-gpio_config_t io_conf = {
+// A pins configuration
+gpio_config_t a_io_conf = {
     .pin_bit_mask = (1ULL<<A0_PIN) | (1ULL<<A1_PIN) | (1ULL<<A2_PIN) | 
                     (1ULL<<A3_PIN) | (1ULL<<A4_PIN) | (1ULL<<A5_PIN) | 
                     (1ULL<<A6_PIN) | (1ULL<<A7_PIN) | (1ULL<<A8_PIN) | 
@@ -38,6 +30,7 @@ gpio_config_t io_conf = {
     .intr_type = GPIO_INTR_DISABLE
 };
 
+// D pins configuration
 gpio_config_t d_io_conf = {
     .pin_bit_mask = (1ULL<<D0_PIN) | (1ULL<<D1_PIN) | (1ULL<<D2_PIN) | 
                     (1ULL<<D3_PIN) | (1ULL<<D4_PIN) | (1ULL<<D5_PIN) | 
@@ -54,20 +47,25 @@ void vTaskCode(void *pvParameters){
     uint16_t d_data;
     uint16_t rom_addr;
 
+    // Initial delay to wait monitor loads
     vTaskDelay(pdMS_TO_TICKS(2000));
     
     printf("ADDR,DATA\n");
     for(;;)
     {
+        // Resets stored data
         rom_addr = 0;
         d_data = 0;
-        // Show
+        
+        // A counter logic to pass through all bits 
         for(int i = 11; i >= 0; i--)
         {
+            // Counter logic
             bit = (counter >> i) & 1;
             
             rom_addr = counter;
 
+            // Setting bits enable to set an address
             switch(i)
             {
                 case 0:  gpio_set_level((gpio_num_t)A0_PIN, (uint32_t)bit);  break;
@@ -86,6 +84,7 @@ void vTaskCode(void *pvParameters){
             }
         }
 
+        // Get data logic, passing through all D outs from ROM
         for(int i = 7; i >= 0; i--)
         {
             switch (i)
@@ -105,6 +104,8 @@ void vTaskCode(void *pvParameters){
         printf("0x%03X,0x%02X\n", rom_addr, d_data);
 
         vTaskDelay(pdMS_TO_TICKS(100));
+        
+        // Restarts counter
         counter++;
         if (counter > 4095) {
             counter = 0;
@@ -114,7 +115,7 @@ void vTaskCode(void *pvParameters){
 
 void app_main(void)
 {
-    gpio_config(&io_conf);
+    gpio_config(&a_io_conf);
     gpio_config(&d_io_conf);
 
     xTaskCreate(vTaskCode, "TASK", 4096, NULL, 5, NULL);   

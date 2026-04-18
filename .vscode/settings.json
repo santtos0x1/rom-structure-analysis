@@ -8,5 +8,8 @@
   ],
   "idf.currentSetup": "/home/santtos/esp/esp-idf",
   "idf.port": "/dev/ttyUSB0",
-  "idf.flashType": "UART"
+  "idf.flashType": "UART",
+  "cSpell.words": [
+    "santtos"
+  ]
 }
