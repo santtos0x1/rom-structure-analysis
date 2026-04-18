@@ -45,6 +45,12 @@ keyboard's internal sound engine.
 ESP32 reads the ROM by iterating over a 12-bit address bus (A[0–11]),
 while the ROM outputs 8-bit data (D[0–7]).
 
+## ⚠️ Hardware Limitation
+
+Due to the limited number of available GPIO pins on the ESP32 (~20),
+not all address lines can be driven directly. As a result, higher-order
+address bits (MSBs) *A[17-12]* are configured using fixed hardware logic.
+
 ---
 
 ## 🔄 Pipeline
