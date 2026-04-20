@@ -13,6 +13,35 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 
 ---
 
+## 📖 Background
+
+ROM stands for Read-Only Memory. It is a non-volatile memory used to store firmware and system data. As the name suggests, the stored programs and data can only be read, not modified.
+
+## 📊 Goals
+
+- Understand ROM organization at a low level  
+- Identify repeating structures and encoded data  
+- Explore possible waveform or lookup table regions
+- Extract all data from ROM addresses
+
+## 🧩 Problem Statement
+
+This project originated from the disassembly of an old, non-functional Casio keyboard that I had at home. During the process, I identified a ROM chip on the PCB, which raised the question of what type of data it contained.
+
+The main objective became to extract and analyze the contents of this ROM in order to understand how the device stored and used its internal data, particularly audio-related information.
+
+To achieve this, I designed a custom ROM reader using an ESP32. However, due to the limited number of available GPIO pins, it was not possible to directly interface with the full address and data buses.
+
+To overcome this limitation:
+
+- The ROM was read using an 8-bit data bus instead of its full width
+- A 12-bit address bus was driven programmatically by the ESP32
+- The remaining higher-order address bits (A[12–17]) were manually configured via hardware
+
+This hybrid approach allowed full access to the ROM contents despite hardware constraints.
+
+---
+
 ## ⚙️ Features
 
 - ROM data acquisition using ESP32 GPIO
@@ -23,9 +52,11 @@ It focuses on reconstructing data from separate MSB/LSB buses and identifying st
 
 ## 🧠 How it Works
 
-The ROM does not store full audio files. Instead, it stores
-small waveform segments that are looped and processed by the
-keyboard's internal sound engine.
+The ROM does not store full audio recordings. Instead, it stores short waveform segments.
+
+These segments are likely looped, combined, and modulated by the keyboard’s internal sound engine to generate different tones and instruments.
+
+This suggests a sample-based synthesis approach rather than direct playback of full audio files.
 
 ## 🛠️ Technologies
 
@@ -62,13 +93,6 @@ address bits (MSBs) *A[17-12]* are configured using fixed hardware logic.
 5. Extract waveform/audio candidates
 6. Generate playable audio samples
 
-## 📊 Goals
-
-- Understand ROM organization at a low level  
-- Identify repeating structures and encoded data  
-- Explore possible waveform or lookup table regions
-- Extract all data from ROM addresses
-
 ---
 
 ## 📈 Data Visualization
@@ -87,6 +111,8 @@ revealing repeating patterns that indicate structured waveform data.
 - Identified repeating waveform patterns
 - Extracted short PCM-like samples (drum-like sounds)
 - Observed that most sounds are synthesized rather than stored as full audio
+
+These findings suggest that the device relies on waveform-based synthesis rather than storing full audio samples, optimizing memory usage while maintaining sound flexibility.
 
 ---
 
